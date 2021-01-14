@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog, Text, TOP, BOTH, X, N, RIGHT
+from tkinter import filedialog, Text, RIGHT
 import os
 
 root = tk.Tk()
@@ -27,12 +27,19 @@ def addApp(): #add application to list.
         label = tk.Label(frame, text = app, bg = "gray")
         label.pack()
 
-def runApps():
+def runApps(): #Run selected apps
     for app in apps:
         os.startfile(app)
 
-def deleteSave():
-    os.remove("save.txt")
+def deleteSave(): #Delete save file and clean the frame of any saved applications
+    try:
+        os.remove("save.txt")
+        del apps[:]
+        for widget in frame.winfo_children():
+            widget.destroy()
+    except:
+        pass
+    
 
 #Setup frame and buttons
 canvas = tk.Canvas(root, height = 500, widt = 500, bg = "gray17")
